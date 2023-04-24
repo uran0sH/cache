@@ -4,22 +4,19 @@
 
 #include <gtest/gtest.h>
 #include "../lru.h"
+#include "../lib.h"
 
 // Demonstrate some basic assertions.
 TEST(LruTest, Insert) {
-  LRUCache cache(3);
-  cache.put(1, 1);
-  int result;
-  EXPECT_TRUE(cache.get(1, result));
-  EXPECT_EQ(1, result);
-  cache.put(2, 2);
-  cache.put(3, 3);
-  cache.put(4, 4);
-  EXPECT_FALSE(cache.get(1, result));
-  EXPECT_TRUE(cache.get(4, result));
-  EXPECT_EQ(4, result);
-  EXPECT_TRUE(cache.get(3, result));
-  EXPECT_EQ(3, result);
-  cache.put(5, 5);
-  EXPECT_FALSE(cache.get(2, result));
+  LruCache cache(3);
+  cache.Put(1, 1);
+  EXPECT_EQ(1, cache.Get(1));
+  cache.Put(2, 2);
+  cache.Put(3, 3);
+  cache.Put(4, 4);
+  EXPECT_EQ(NONE, cache.Get(1));
+  EXPECT_EQ(4, cache.Get(4));
+  EXPECT_EQ(3, cache.Get(3));
+  cache.Put(5, 5);
+  EXPECT_EQ(NONE, cache.Get(2));
 }

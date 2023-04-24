@@ -8,23 +8,24 @@
 #include <list>
 #include <unordered_map>
 
-class LRUCache {
+class LruCache {
  public:
-  explicit LRUCache(int capacity) : capacity_(capacity), count_(0) {}
-  LRUCache(const LRUCache&) = delete;
-  LRUCache& operator=(const LRUCache&) = delete;
-  ~LRUCache() {}
-  bool get(int key, int& value);
-  void put(int key, int value);
+  explicit LruCache(int capacity) : capacity_(capacity), len_(0) {}
+  LruCache(const LruCache&) = delete;
+  LruCache& operator=(const LruCache&) = delete;
+  ~LruCache() {}
+  int Get(int key);
+  int Peek(int key);
+  void Put(int key, int value);
+  bool Del(int key);
+  int PopBack();
+  int len() { return len_; }
 
  private:
   std::list<std::pair<int, int>> items_;
   std::unordered_map<int, std::list<std::pair<int, int>>::iterator> index_;
   int capacity_;
-  int count_;
-
-  int remove(int key) {}
-  void push_front(std::pair<int, int> item) {}
+  int len_;
 };
 
 #endif  // CACHE__LRU_H_

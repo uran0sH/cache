@@ -7,5 +7,6 @@
 
 #define NONE (INT_MIN)
 #define INVALID (NONE + 1)
+#define VALID(value) ((value) != NONE && (value) != INVALID)
 
 #endif  // CACHE__LIB_H_
